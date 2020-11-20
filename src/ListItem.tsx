@@ -1,19 +1,23 @@
 import React from 'react'
+import { Todo } from './TodoList'
 
-export interface Props {
-    id: number,
-    description: string,
-    completed: boolean,
-    dueDate: string
-}
+// export interface Props extends Todo {}
 
-export default function ListItem({id, description, dueDate}: Props) {
+export default function ListItem({
+    id,
+    description, 
+    dueDate, 
+    handleUpdate,
+    handleDelete
+}: Todo) {
     return (
         <div>
-            <li key={id}>
+            <li>
                 <p>{description}</p> 
+                {/* {dueDate && <p>Due: {dueDate}</p>} */}
                 <p>Due: {dueDate}</p>
-                <button>Mark Completed</button>
+                <button onClick={() => handleUpdate(id)}>Mark Completed</button>
+                <button onClick={() => handleDelete(id)}>Delete Todo</button>
             </li>
         </div>
     )
