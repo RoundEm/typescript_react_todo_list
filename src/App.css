@@ -1,18 +1,71 @@
-.App {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   text-align: center;
+  font-weight: 500;
 }
 
-ul {
-  padding: 0;
+input {
+  width: 60%;
+  height: 50px;
+  margin-top: 1em;
+  padding: 2px 10px;
+  font-size: 1.2em;
+  text-align: left;
+}
+
+input[type="date"] {
+  width: 50%;
 }
 
 li {
   list-style-type: none;
-  border: 2px solid salmon;
+  font-size: 1.2em;
+  /* background: linear-gradient(rgb(240, 180, 173), rgb(237, 153, 144), rgb(247, 138, 126)); */
+  border: 1px solid rgb(65, 228, 174);
   border-radius: 10px;
   margin: 1em;
 }
 
 button {
-  margin-bottom: 1em;
+  margin: .5em;
+  padding: 10px 15px;
+  font-size: 1em;
+  border: none;
+}
+
+button:hover {
+  background-color: rgb(65, 228, 174);
+  cursor: pointer;
+}
+
+.completedTodo {
+  border-color: rgb(199, 199, 199);
+  background-color: rgb(199, 199, 199);
+}
+
+::placeholder {
+   /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: rgb(199, 199, 199);
+  /* Firefox */
+  opacity: 1; 
+}
+/* Internet Explorer 10-11 */
+:-ms-input-placeholder { 
+  color: rgb(199, 199, 199);
+}
+/* Microsoft Edge */
+::-ms-input-placeholder { 
+  color: rgb(199, 199, 199);
+}
+/* date placeholder color */
+input[type=date]:invalid::-webkit-datetime-edit {
+  color: rgb(199, 199, 199);
+}
+
+@media only screen and (max-width: 600px) {
+  input {
+    width: 90%;
+  }
 }

@@ -7,16 +7,19 @@ export default function ListItem({
     id,
     description, 
     dueDate, 
+    completed,
     handleUpdate,
     handleDelete
 }: Todo) {
     return (
         <div>
-            <li>
+            <li className={completed ? 'completedTodo' : ''}>
                 <p>{description}</p> 
                 {/* {dueDate && <p>Due: {dueDate}</p>} */}
                 <p>Due: {dueDate}</p>
-                <button onClick={() => handleUpdate(id)}>Mark Completed</button>
+                <button onClick={() => handleUpdate(id)}>
+                    {completed ? 'Mark Incompleted' : 'Mark Completed'}
+                </button>
                 <button onClick={() => handleDelete(id)}>Delete Todo</button>
             </li>
         </div>

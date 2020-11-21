@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import TodoList from './TodoList'
-import './App.css';
+import './App.css'
 
 function App() {
   return (
@@ -10,4 +10,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
