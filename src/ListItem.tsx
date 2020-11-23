@@ -1,5 +1,5 @@
 import React from 'react'
-import { Todo } from './TodoList'
+import { TodoProps } from './Types'
 
 // export interface Props extends Todo {}
 
@@ -8,16 +8,16 @@ export default function ListItem({
     description, 
     dueDate, 
     completed,
-    handleUpdate,
+    handleToggleCompleted,
     handleDelete
-}: Todo) {
+}: TodoProps) {
     return (
         <div>
             <li className={completed ? 'completedTodo' : ''}>
                 <p>{description}</p> 
                 {/* {dueDate && <p>Due: {dueDate}</p>} */}
                 <p>Due: {dueDate}</p>
-                <button onClick={() => handleUpdate(id)}>
+                <button onClick={() => handleToggleCompleted(id)}>
                     {completed ? 'Mark Incompleted' : 'Mark Completed'}
                 </button>
                 <button onClick={() => handleDelete(id)}>Delete Todo</button>

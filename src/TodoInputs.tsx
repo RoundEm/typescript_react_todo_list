@@ -20,38 +20,43 @@ export default function TodoInput({ handleAdd }: any) {
     function handleInputChange(e: any): void {
         const updatedValues = {
             ...values,
-            [e.target.name]: e.target.value
+            [e.target.id]: e.target.value
         }
         setValues(updatedValues)
     }
 
     function handleAddTodoAndInputClear(e: any): void {
         e.preventDefault()
-        setValues({ description: '', dueDate: '' })
         handleAdd(values)
+        setValues({ description: '', dueDate: '' })
     }
 
     return (
         <form onSubmit={(e) => handleAddTodoAndInputClear(e)}>
-            <input 
-                type="text"
-                name="description"
-                value={values.description}
-                onChange={e => handleInputChange(e)}
-                placeholder="Add todo..."
-                required
-            />
+            <div id="descriptionInputContainer">
+                <label htmlFor="description">Todo</label>
+                <input 
+                    type="text"
+                    id="description"
+                    value={values.description}
+                    onChange={e => handleInputChange(e)}
+                    placeholder="Make todo list with TypeScript and React"
+                    required
+                />
+            </div>
 
-            <input 
-                type="date"
-                name="dueDate"
-                value={values.dueDate}
-                onChange={e => handleInputChange(e)}
-                placeholder="Date due..."
-                required
-            />
-
-            <br />
+            <div id="dueDateInputContainer">
+                <label htmlFor="dueDate">Due Date</label>
+                <input 
+                    type="date"
+                    id="dueDate"
+                    value={values.dueDate}
+                    onChange={e => handleInputChange(e)}
+                    placeholder="Date due..."
+                    // required
+                />
+            </div>
+            
             <button
                 type="submit"
             >
