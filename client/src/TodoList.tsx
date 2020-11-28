@@ -12,9 +12,9 @@ const initialTodos = [
 
 // TODO: 
 // - persist
-// - add priority
-// - allow dueDate edit?
-// - setup useEffect to clear inputs only when todo has been added (need to use `useRef`)?
+// - setup priority?
+// - setup dueDate edit?
+// - setup useEffect to clear inputs only when todo has been added (need to use `useRef`?)?
 
 export default function TodoList() {
     const [todos, setTodos] = useState(initialTodos)
@@ -76,13 +76,9 @@ export default function TodoList() {
         <>
             <h1>TypeScript/React Todo List</h1>
 
-            <TodoInputs 
-                handleAdd={handleAddTodo}
-            />
+            <TodoInputs handleAdd={handleAddTodo} />
 
-            <button
-                onClick={handleCompleteAll}
-            >
+            <button onClick={handleCompleteAll}>
                 Mark All Todos Completed
             </button>
 
