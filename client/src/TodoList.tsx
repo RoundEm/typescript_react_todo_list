@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 import { v4 as uuid } from 'uuid'
 import { Todo } from './Types'
 import TodoInputs from './TodoInputs'
 import ListItem from './ListItem'
 
-const initialTodos = [
-    { id: '2', description: 'FFFFF', completed: false, dueDate: '2020-12-24'},
-    { id: '1', description: 'AAAAA', completed: false, dueDate: '2020-11-30'},
-    { id: '3', description: 'YYYYY', completed: false, dueDate: '2021-01-15'}
-]
+// const initialTodos: Todo[] = [
+//     // { id: '2', description: 'FFFFF', completed: false, dueDate: '2020-12-24'},
+//     // { id: '1', description: 'AAAAA', completed: false, dueDate: '2020-11-30'},
+//     // { id: '3', description: 'YYYYY', completed: false, dueDate: '2021-01-15'}
+// ]
 
 // TODO: 
 // - persist
@@ -17,12 +18,28 @@ const initialTodos = [
 // - setup useEffect to clear inputs only when todo has been added (need to use `useRef`?)?
 
 export default function TodoList() {
-    const [todos, setTodos] = useState(initialTodos)
+    const [todos, setTodos] = useState([])
     // const [clearInputs, setClearInputs] = useState(false)
     // console.log('todos: ', todos)
 
-    // useEffect(() => {
-    // }, [todos])
+    useEffect(() => {
+        axios.get('/todos')
+            .then((res) => {
+                console.log('get todos res: ', res)
+                setTodos(res.data)
+            })
+            .catch((err) => {
+                console.log('get todos err: ', err)
+            })
+    }, [])
+
+    const completedTodos = todos.filter((todo: Todo) => {
+        return todo.completed
+    })
+
+    const incompleteTodos = todos.filter((todo: Todo) => {
+        return !todo.completed
+    })
 
     const sortTodos = (todos: Todo[]): Todo[] => {
         return todos.sort((a: Todo, b: Todo) => {
@@ -30,16 +47,9 @@ export default function TodoList() {
         })
     }
 
-    const completedTodos = todos.filter(todo => {
-        return todo.completed
-    })
-
-    const incompleteTodos = todos.filter(todo => {
-        return !todo.completed
-    })
-
+    // TODO: why doesn't updatedTodos: Todo[]` work
     function handleToggleCompleted(todoId: string): void {
-        const updatedTodos = todos.map(todo => {
+        const updatedTodos: any = todos.map((todo: Todo) => {
             return todo.id === todoId
                 ? { ...todo, completed: !todo.completed }
                 : todo
@@ -48,23 +58,31 @@ export default function TodoList() {
     }
 
     function handleDeleteTodo(todoId: string): void {
-        const filteredTodos = todos.filter(todo => todo.id !== todoId)
+        const filteredTodos = todos.filter((todo: Todo) => todo.id !== todoId)
         setTodos(filteredTodos)
     }
 
     function handleAddTodo({ description, dueDate }: any): void {
         const newTodo = {
-            id: uuid(),
             description,
             dueDate,
-            completed: false,
+            // id: uuid(),
+            // completed: false,
         }
-        setTodos(todos => [...todos, newTodo])
+        // setTodos(todos => [...todos, newTodo])
+        axios.post('/todos', newTodo)
+            .then((res) => {
+                console.log('post res: ', res)
+            })
+            .catch((err) => {
+                console.log('post err: ', err)
+            })
     }
 
     // TODO: refactor handleToggleCompleted to handle complete all too?
+    // TODO: why doesn't completedTodos: Todo[]` work
     function handleCompleteAll(): void {
-        const completedTodos = todos.map(todo => {
+        const completedTodos: any = todos.map((todo: Todo) => {
             return !todo.completed 
                 ? { ...todo, completed: true }
                 : todo

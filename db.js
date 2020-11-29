@@ -6,10 +6,13 @@ const pool = new Pool({
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
     password: process.env.DB_PASS,
-    port: 3211,
+    port: 5432,
+    ssl: {
+        rejectUnauthorized: false
+    }
 })
 
-exports.module = pool
+module.exports = pool
 
 // create table TODO(
 // 	id serial primary key,
