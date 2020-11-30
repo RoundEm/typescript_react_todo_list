@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 // export interface TodoInput {
 //     description: string
-//     dueDate?: string
+//     due_date?: string
 //     handleAdd: () => void
 // }
 
@@ -13,7 +13,7 @@ import React, { useState } from 'react'
 export default function TodoInput({ handleAdd }: any) {
     const [values, setValues] = useState({
         description: '',
-        dueDate: ''
+        due_date: ''
     })
     // console.log('values: ', values)
 
@@ -28,7 +28,7 @@ export default function TodoInput({ handleAdd }: any) {
     function handleAddTodoAndInputClear(e: any): void {
         e.preventDefault()
         handleAdd(values)
-        setValues({ description: '', dueDate: '' })
+        setValues({ description: '', due_date: '' })
     }
 
     return (
@@ -46,11 +46,11 @@ export default function TodoInput({ handleAdd }: any) {
             </div>
 
             <div id="dueDateInputContainer">
-                <label htmlFor="dueDate">Due Date</label>
+                <label htmlFor="due_date">Due Date</label>
                 <input 
                     type="date"
-                    id="dueDate"
-                    value={values.dueDate}
+                    id="due_date"
+                    value={values.due_date}
                     onChange={e => handleInputChange(e)}
                     placeholder="Date due..."
                     // required

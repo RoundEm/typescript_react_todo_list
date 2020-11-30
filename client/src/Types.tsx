@@ -3,11 +3,11 @@ export type Todo = Readonly<{
     id: string
     description: string
     completed: boolean
-    dueDate: string
+    due_date: string
 }>
 
 export type TodoActions = {
-    handleToggleCompleted: (todoId: string) => void
+    handleToggleCompleted: (todoId: string, completed: boolean) => void
     handleDelete: (todoId: string) => void
 }
 

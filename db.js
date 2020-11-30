@@ -18,5 +18,5 @@ module.exports = pool
 // 	id serial primary key,
 //     description text not null,
 //     completed boolean not null default false,
-//     dueDate date,
+//     due_date date,
 // );
