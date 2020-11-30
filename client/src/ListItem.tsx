@@ -9,9 +9,10 @@ export default function ListItem({
     handleToggleCompleted,
     handleDelete
 }: TodoProps) {
-    const month = new Date(due_date).getMonth()+1
-    const date = new Date(due_date).getDate()
-    const year = new Date(due_date).getFullYear()
+    const dueDate = new Date(due_date)
+    const month = dueDate.getMonth()+1
+    const date = dueDate.getDate()
+    const year = dueDate.getFullYear()
     const fullDueDate = `${month}/${date}/${year}`
     return (
         <div>

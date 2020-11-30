@@ -1,27 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-// import { v4 as uuid } from 'uuid'
 import { Todo } from './Types'
 import TodoInputs from './TodoInputs'
 import ListItem from './ListItem'
 
 // TODO: 
-// - finish routes
 // - refactor routes to syntax that sanitizes dynamic values?
-// - add Moment to format date strings?
 // - setup priority?
-// - setup due_date edit?
+// - setup due_date editing?
 // - setup useEffect to clear inputs only when todo has been added (need to use `useRef`?)?
 
 export default function TodoList() {
     const [todos, setTodos] = useState([])
-    // const [clearInputs, setClearInputs] = useState(false)
     // console.log('todos: ', todos)
 
     useEffect(() => {
         axios.get('/todos')
             .then((res) => {
-                console.log('get todos res: ', res)
+                // console.log('get todos res: ', res)
                 setTodos(res.data)
             })
             .catch((err) => {
@@ -43,8 +39,9 @@ export default function TodoList() {
         })
     }
 
-    // TODO: why doesn't updatedTodos: Todo[]` work
-    function handleToggleCompleted(todoId: string, completed: boolean): void {
+    function handleToggleCompleted(
+        todoId: string, completed: boolean
+    ): void {
         axios.put(`/todos/${todoId}/${!completed}`)
             .then((res) => {
                 // console.log('toggle res: ', res)
@@ -66,7 +63,9 @@ export default function TodoList() {
             })
     }
 
-    function handleAddTodo({ description, due_date }: any): void {
+    function handleAddTodo(
+        { description, due_date }: any
+    ): void {
         const newTodo = {
             description,
             due_date,
@@ -81,21 +80,22 @@ export default function TodoList() {
             })
     }
 
-    // TODO: refactor this to update DB
     // TODO: refactor handleToggleCompleted to handle complete all too?
-    // TODO: why doesn't completedTodos: Todo[]` work
     function handleCompleteAll(): void {
-        const completedTodos: any = todos.map((todo: Todo) => {
-            return !todo.completed 
-                ? { ...todo, completed: true }
-                : todo
-        })
-        setTodos(completedTodos)
+        // TODO: change to Promise.all??
+        for (const { id } of incompleteTodos) {
+            axios.put(`/todos/${id}/${true}`)
+                .then(res => {
+                    console.log(`complete all res for ${id}: `, res)
+                })
+                .catch(err => console.log(`complete all err for ${id}: `, err))
+        }
     }
 
     return (
         <>
-            <h1>TypeScript/React Todo List</h1>
+            <h1>TODO List</h1>
+            <h2>Built with TypeScript, React, Express, & Postgres</h2>
 
             <TodoInputs handleAdd={handleAddTodo} />
 
